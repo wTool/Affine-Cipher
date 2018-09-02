@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Affine Cipher</title>
+<style type="text/css">
+body{text-align:center;}
+.center{width:600px;height:500px;position:absolute;left:50%;margin-left:-300px;border:2pxsolid;}
+.center2{width:600px;height:550px;position:absolute;left:50%;margin-left:-300px;top:600px;border:2pxsolid;}
+.comments{width:50%;overflow:auto;word-break:break-all;}
+</style>
+</head>
+<body>
+<h2 style="background-color: pink">Affine Cipher: Encryption - Decrption</h2>
+<br>
+<div class="center">
+	<br>
+	<br>
+	<form>
+		Plaintext:&nbsp;&nbsp;
+		<textarea class="comments" rows="10" cols="10" id="input1"></textarea><br>
+		k_1:&nbsp;&nbsp;
+		<input type="text" name="k_1" id="input2"><br>
+		k_2:&nbsp;&nbsp;
+		<input type="text" name="k_2" id="input3"><br>
+		<button type="button" onclick="eFunction()">Encrypt</button><br>
+		Ciphertext:&nbsp;&nbsp;
+		<textarea class="comments" rows="10" cols="10" id="output1"></textarea>
+	</form>
+</div>
+<div class="center2">
+	<br>
+	<br>
+		Ciphertext:&nbsp;&nbsp;
+	<textarea class="comments" rows="10" cols="10" id="input4"></textarea><br>
+		k_1:&nbsp;&nbsp;
+	<input type="text" name="k_1" id="input5"><br>
+		k_2:&nbsp;&nbsp;
+	<input type="text" name="k_2" id="input6"><br>
+	<button type="button" onclick="dFunction()">Decrypt</button><br>
+		Plaintext:&nbsp;&nbsp;
+	<textarea class="comments" rows="10" cols="10" id="output2"></textarea>
+</div>
+<script type="text/javascript">
+function eFunction() {
+	var k1;
+	var k2;
+	var code2 = "";
+	var plaintext = document.getElementById("input1").value;
+	plaintext = plaintext.toLowerCase();
+	var result = "";
+	var num;
+	k1 = document.getElementById("input2").value;
+	k1 = parseInt(k1);
+	k2 = document.getElementById("input3").value;
+	k2 = parseInt(k2);
+	if (k1 < 26 && isNaN(k1) == false && k1 % 2 != 0 && k1 != 13 && k2 >= 0 && k2 <= 25) {
+		for (var i = 0; i <= plaintext.length - 1; i++) {
+			code = plaintext[i].charCodeAt() - 97;
+			code = k1 * code + k2;
+			code = code % 26;
+			num = code;
+			code2 += String.fromCharCode(num + 97);
+			result = code2 + ""
+		}
+		document.getElementById("output1").value = result
+	} else {
+		document.getElementById("output1").value = "k1 or k2 is not correct"
+	}
+}
+function dFunction() {
+	var k1;
+	var k11;
+	k11 = parseInt(k11);
+	var k2;
+	var code2 = "";
+	var ciphertext = document.getElementById("input4").value;
+	ciphertext = ciphertext.toLowerCase();
+	var result = "";
+	var num;
+	k1 = document.getElementById("input5").value;
+	k1 = parseInt(k1);
+	k2 = document.getElementById("input6").value;
+	k2 = parseInt(k2);
+	if (k1 < 26 && isNaN(k1) == false && k1 % 2 != 0 && k1 != 13 && k2 >= 0 && k2 <= 25) {
+		if (k1 == 1) {
+			k11 = 1
+		}
+		if (k1 == 3) {
+			k11 = 9
+		}
+		if (k1 == 5) {
+			k11 = 21
+		}
+		if (k1 == 7) {
+			k11 = 15
+		}
+		if (k1 == 11) {
+			k11 = 19
+		}
+		if (k1 == 17) {
+			k11 = 23
+		}
+		if (k1 == 25) {
+			k11 = 25
+		}
+		for (var i = 0; i <= ciphertext.length - 1; i++) {
+			code = ciphertext[i].charCodeAt() - 97;
+			code = k11 * (code - k2);
+			code = code % 26;
+			if (code < 0) {
+				code += 26
+			}
+			num = code;
+			code2 += String.fromCharCode(num + 97);
+			result = code2 + ""
+		}
+		document.getElementById("output2").value = result
+	} else {
+		document.getElementById("output2").value = "k1 or k2 is not correct"
+	}
+}
+</script>
+</body>
+</html>
